@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
 
-const userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema(
+  {
     email: {
       type: String,
       required: true,
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
       lowercase: true,
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error('Invalid email');
+          throw new Error("Invalid email");
         }
       },
     },
@@ -19,21 +20,30 @@ const userSchema = mongoose.Schema({
       type: String,
       required: true,
       trim: true,
-      minlength: 8
+      minlength: 8,
     },
-    monoId: {
-		type: String
+    firstName: {
+      type: String,
+      required: true,
     },
-    monoCode: {
-      type: String
+    lastName: {
+      type: String,
+      required: true,
     },
-    monoStatus: {
-      type: Boolean,
-      default: false
+    phoneNumber: {
+      type: String,
+      required: true,
     },
-    monoReauthToken: {
-      type: String
+    expoPushToken: {
+      type: String,
     },
+    latitude: {
+      type: String,
+    },
+    longitude: {
+      type: String,
+    },
+    profilePic: { type: String, default: "https://reactnative.dev/img/tiny_logo.png" }
   },
   {
     timestamps: true,
@@ -52,15 +62,14 @@ userSchema.methods.isPasswordMatch = async function (password) {
   return bcrypt.compare(password, user.password);
 };
 
-
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
