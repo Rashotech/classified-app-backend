@@ -1,4 +1,4 @@
-# TEAM GENESIS - I4G/MONO HACKATHON BACKEND
+# CLASSIFIED APP - BACKEND
 
 Backend REST API on Node.js 14.16.0 + Express.js + Mongoose.
 
@@ -17,14 +17,13 @@ Backend REST API on Node.js 14.16.0 + Express.js + Mongoose.
 
         DB_STRING = "
         DB_STRING_PROD = mongodb db live for production
-        MONO_SECRET_KEY =
-        MONO_PUBLIC_KEY = 
-        MONO_WEBHOOK_SECRET = 
-        MONO_API_URL = https://api.withmono.com/accounts/
         NODE_ENV = 'development'
         JWT_SECRET =
         JWT_ACCESS_EXPIRATION_MINUTES=
         JWT_REFRESH_EXPIRATION_DAYS=
+        CLOUDINARY_CLOUD_NAME = 
+        CLOUDINARY_API_KEY = 
+        CLOUDINARY_API_SECRET = 
 
 ## Start App
     npm start for production
