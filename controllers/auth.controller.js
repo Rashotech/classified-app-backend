@@ -21,6 +21,11 @@ const logout = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const expoPushTokens = catchAsync(async (req, res) => {
+  await userService.expoPushTokens(req.body.token, req.user._id);
+  res.status(httpStatus.OK).send("Expo Push Token Saved");
+});
+
 const refreshTokens = catchAsync(async (req, res) => {
   const tokens = await userService.refreshAuth(req.body.refreshToken);
   res.send({ ...tokens });
@@ -31,5 +36,6 @@ module.exports = {
   register,
   login,
   logout,
-  refreshTokens
+  refreshTokens,
+  expoPushTokens
 };
