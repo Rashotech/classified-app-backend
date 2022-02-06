@@ -18,6 +18,19 @@ const loginWithEmail = async (email, password) => {
   return user;
 };
 
+
+const expoPushTokens = async (token, userId) => {
+  const user = await User.findOne({ _id: userId });
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+  }
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, { expoPushToken: token}, {
+    new: true,
+  });
+  return updatedUser;
+};
+
+
 const logout = async (refreshToken) => {
   const refreshTokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false });
   if (!refreshTokenDoc) {
@@ -45,5 +58,6 @@ module.exports = {
   createUser,
   loginWithEmail,
   logout,
-  refreshAuth
+  refreshAuth,
+  expoPushTokens
 };
